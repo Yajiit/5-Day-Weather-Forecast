@@ -41,8 +41,14 @@ function displayForecast(data) {
     };
   });
 
+  let row;
   // Create forecast cards and append them to the container
-  forecasts.forEach(forecast => {
+  forecasts.forEach((forecast, i) => {
+    if (i % 4 === 0){
+      row = document.createElement('div');
+      row.classList.add('forecast-row');
+    }
+
     // used forEach method to iterate over each 'forecast' in the array 'forecasts' [with an s]
     const card = document.createElement('div');
     // created 'card' element as a <div>
@@ -57,8 +63,12 @@ function displayForecast(data) {
       <img src="https://openweathermap.org/img/w/${forecast.icon}.png" alt="${forecast.description}">
     `;
     // added the HTML to each 'card' with <h3> for time and a <p> for main temp, low temp, high temp, weath description, and icon each.
-    forecastContainer.appendChild(card);
+    row.appendChild(card);
     // appended the card to forecastContainer in the HTML document
+
+    if ((i + 1) % 4 === 0 || i === forecasts.length - 1) {
+      forecastContainer.appendChild(row);
+    }
   });
 }
 

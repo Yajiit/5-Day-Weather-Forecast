@@ -1,0 +1,21 @@
+.weather-forecast{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.forecast-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.forecast-card {
+    width: 23%;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 8px;
+    margin: 8px;
+    box-sizing: border-box;
+  }
+
