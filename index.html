@@ -13,7 +13,15 @@
   <h1>5-Day Weather Forecast</h1>
   <div class="container">
     <div class="row">
-     <div id="city-search" class="col-md-3 order-md-1 order-2"></div>
+     <div id="searh-bar" class="col-md-3 order-md-1 order-2">
+      <form id="search-form">
+      <div class="mb-3">
+        <label for="city-input" class="form-label">City</label>
+        <input type="text" class="form-control" id="city-input" placeholder="Enter city name" />
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+     </div>
      <div id="weather-forecast" class="col-md-9 order-md-2 order-1"></div>
     </div>
   </div>

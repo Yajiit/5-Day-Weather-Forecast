@@ -1,13 +1,23 @@
 // API Key from openweathermap
 const apiKey = 'f18407f262d0ba6004701ffa48b7cccb';
-// City to get weather for
-const city = 'Phoenix';
+const searchForm = document.getElementById('search-form');
+// Event listener for form submission
+searchForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const cityInput = document.getElementById('city-input');
+  const city = cityInput.value;
 
-// Weather forecast API URL
-const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+  // Call the function to fetch weather forecast for the entered city
+  fetchForecast(city);
+});
+
+
+
 
 // Function to fetch the forecast data
-async function fetchForecast() {
+async function fetchForecast(city) {
+  // Weather forecast API URL
+const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
   try {
     // fetches the forecast for the chosen city and stores as "response"
     const response = await fetch(apiUrl);
@@ -71,6 +81,3 @@ function displayForecast(data) {
     }
   });
 }
-
-// starts function
-fetchForecast();
