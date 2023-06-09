@@ -1,21 +1,76 @@
 // API Key from openweathermap
 const apiKey = 'f18407f262d0ba6004701ffa48b7cccb';
+
 const searchForm = document.getElementById('search-form');
+  // sets forecastContainer to reference div container "weather-forecast" in HTML
+  const forecastContainer = document.getElementById('weather-forecast');
+  const searchHistoryContainer = document.getElementById('search-history');
 // Event listener for form submission
-searchForm.addEventListener('submit', function (event) {
+searchForm.addEventListener('submit', function(event) {
   event.preventDefault();
   const cityInput = document.getElementById('city-input');
   const city = cityInput.value;
 
   // Call the function to fetch weather forecast for the entered city
   fetchForecast(city);
-});
+      // Add the searched city to local storage
+      addCityToLocalStorage(city);
+
+      // Clear the input field after the search
+      cityInput.value = '';
+    });
+
+      // Load and display the search history on page load
+  const initialSearchHistory = localStorage.getItem('searchHistory');
+  if (initialSearchHistory) {
+    const parsedSearchHistory = JSON.parse(initialSearchHistory);
+    displaySearchHistory(parsedSearchHistory);
+  }
 
 
+  // Function to add the searched city to local storage
+  function addCityToLocalStorage(city) {
+    let searchHistory = localStorage.getItem('searchHistory');
+    if (searchHistory) {
+      searchHistory = JSON.parse(searchHistory);
+      // Remove the city if it already exists in the search history
+      searchHistory = searchHistory.filter(item => item !== city);
+      // Add the new city to the beginning of the search history array
+      searchHistory.unshift(city);
+      // Keep only the last 5 searches
+      searchHistory = searchHistory.slice(0, 5);
+    } else {
+      searchHistory = [city];
+    }
 
+    // Save the updated search history to local storage
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
+    // Display the search history as buttons
+    displaySearchHistory(searchHistory);
+  }
+
+  // Function to display the search history as buttons
+  function displaySearchHistory(searchHistory) {
+    searchHistoryContainer.innerHTML = '';
+
+    searchHistory.forEach(city => {
+      const button = document.createElement('button');
+      button.textContent = city;
+      button.classList.add('btn', 'btn-secondary', 'mb-2', 'd-block');
+      button.addEventListener('click', function() {
+        fetchForecast(city);
+      });
+
+      searchHistoryContainer.appendChild(button);
+    });
+  }
+
+  
 // Function to fetch the forecast data
 async function fetchForecast(city) {
+
+  
   // Weather forecast API URL
 const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
   try {
@@ -31,10 +86,11 @@ const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid
   }
 }
 
+
+
 // Function to display the weather forecast to the div container
 function displayForecast(data) {
-  // sets forecastContainer to reference div container "weather-forecast" in HTML
-  const forecastContainer = document.getElementById('weather-forecast');
+
   // clears any existing content of that div container
   forecastContainer.innerHTML = '';
 
@@ -81,3 +137,87 @@ function displayForecast(data) {
     }
   });
 }
+
+// window.onload = function() {
+//   // Event listener for form submission
+//   searchForm.addEventListener('submit', function(event) {
+//     event.preventDefault();
+//     const cityInput = document.getElementById('city-input');
+//     const city = cityInput.value;
+
+//     // Call the function to fetch weather forecast for the entered city
+//     fetchForecast(city);
+
+//     // Add the searched city to local storage
+//     addCityToLocalStorage(city);
+
+//     // Clear the input field after the search
+//     cityInput.value = '';
+//   });
+
+//   // Function to fetch the forecast data
+//   async function fetchForecast(city) {
+//     // Weather forecast API URL
+//     const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+//     try {
+//       // Fetches the forecast for the chosen city and stores it as "response"
+//       const response = await fetch(apiUrl);
+//       // Parses the response as JSON and stores it as "data"
+//       const data = await response.json();
+//       // Puts the parsed data into the displayForecast function
+//       displayForecast(data);
+//     } catch (error) {
+//       // Log any errors
+//       console.log('Error:', error);
+//     }
+//   }
+
+//   // Function to add the searched city to local storage
+//   function addCityToLocalStorage(city) {
+//     let searchHistory = localStorage.getItem('searchHistory');
+//     if (searchHistory) {
+//       searchHistory = JSON.parse(searchHistory);
+//       // Remove the city if it already exists in the search history
+//       searchHistory = searchHistory.filter(item => item !== city);
+//       // Add the new city to the beginning of the search history array
+//       searchHistory.unshift(city);
+//       // Keep only the last 5 searches
+//       searchHistory = searchHistory.slice(0, 5);
+//     } else {
+//       searchHistory = [city];
+//     }
+
+//     // Save the updated search history to local storage
+//     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+
+//     // Display the search history as buttons
+//     displaySearchHistory(searchHistory);
+//   }
+
+//   // Function to display the search history as buttons
+//   function displaySearchHistory(searchHistory) {
+//     searchHistoryContainer.innerHTML = '';
+
+//     searchHistory.forEach(city => {
+//       const button = document.createElement('button');
+//       button.textContent = city;
+//       button.classList.add('btn', 'btn-secondary', 'mb-2', 'd-block');
+//       button.addEventListener('click', function() {
+//         fetchForecast(city);
+//       });
+
+//       searchHistoryContainer.appendChild(button);
+//     });
+//   }
+
+//   // Load and display the search history on page load
+//   const initialSearchHistory = localStorage.getItem('searchHistory');
+//   if (initialSearchHistory) {
+//     const parsedSearchHistory = JSON.parse(initialSearchHistory);
+//     displaySearchHistory(parsedSearchHistory);
+
+//     // Fetch the weather forecast for the most recently searched city
+//     const mostRecentCity = parsedSearchHistory[0];
+//     fetchForecast(mostRecentCity);
+//   }
+// };
