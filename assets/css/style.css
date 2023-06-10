@@ -10,12 +10,37 @@
   width: 100%;
 }
 
+.forecast-current {
+  width: 97%;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 8px;
+  margin: 8px;
+  box-sizing: border-box;
+  font-size:112%;
+}
+
 .forecast-card {
-    width: 23%;
+    display: inline-block;
+    width: 21%;
     border: 2px solid #000;
     border-radius: 5px;
     padding: 8px;
     margin: 8px;
     box-sizing: border-box;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s;
+  }
+  
+    .forecast-card:hover {
+      background-color: #555;
   }
 
+  #high {
+    color: red;
+  }
+  
+  #low {
+    color: blue;
+  }
