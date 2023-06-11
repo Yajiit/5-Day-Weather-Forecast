@@ -101,6 +101,7 @@ function displayForecast(data) {
   // clears any existing content of that div container
   forecastContainer.innerHTML = '';
 
+  const weatherId = data.list[0].weather[0].id;
   const forecastsByDay = groupForecastsByDay(data.list);
   const currentDayForecast = forecastsByDay[0];
   const dailyForecasts = forecastsByDay.slice(1);
@@ -113,9 +114,12 @@ function displayForecast(data) {
     <p id="high">High: ${convertKelvinToFahrenheit(currentDayForecast.tempHigh)} </p>
     <p id="low">Low: ${convertKelvinToFahrenheit(currentDayForecast.tempLow)} </p>
     <p>Description: ${currentDayForecast.description}</p>
+    <p>ID: ${data.list[0].weather[0].id}</p>
     <img src="https://openweathermap.org/img/w/${currentDayForecast.icon}.png" alt="${currentDayForecast.description}">
   `;
 
+  changeBackgroundColor(weatherId)
+  console.log(currentDayForecast)
   forecastContainer.appendChild(currentForecastCard);
 
   dailyForecasts.forEach(forecast => {
@@ -124,14 +128,16 @@ function displayForecast(data) {
     forecastCard.innerHTML = `
       <h3>${forecast.date}</h3>
       <p>Temp: ${convertKelvinToFahrenheit(forecast.temperature)} </p>
-      <p id="high">High: ${convertKelvinToFahrenheit(forecast.tempHigh)} </p>
-      <p id="low">Low: ${convertKelvinToFahrenheit(forecast.tempLow)} </p>
+      <p id="high">H: ${convertKelvinToFahrenheit(forecast.tempHigh)} </p>
+      <p id="low">L: ${convertKelvinToFahrenheit(forecast.tempLow)} </p>
       <p> ${forecast.description}</p>
       <img src="https://openweathermap.org/img/w/${forecast.icon}.png" alt="${forecast.description}">
     `;
     // added the HTML to each 'card' with <h3> for time and a <p> for main temp, low temp, high temp, weath description, and icon each.
     forecastContainer.appendChild(forecastCard);
   });
+
+
 
 }
 // Function to group forecasts by day
@@ -169,4 +175,31 @@ function convertKelvinToFahrenheit(temperature) {
   const fahrenheit = (temperature - 273.15) * 9/5 + 32;
   // cut off at tenth decimal
   return fahrenheit.toFixed(1);
+}
+
+function changeBackgroundColor(weatherId) {
+  const body = document.body;
+
+  if (weatherId >= 200 && weatherId <= 299) {
+    // Thunderstorm colors
+    body.style.backgroundColor = "#616C6F";
+  } else if (weatherId >= 500 && weatherId <= 599) {
+    // Rain colors
+    body.style.backgroundColor = "#6B7A8F";
+  } else if (weatherId >= 600 && weatherId <= 699) {
+    // Snow colors
+    body.style.backgroundColor = "#B3CDE0";
+  } else if (weatherId === 701) {
+    // Mist colors
+    body.style.backgroundColor = "#A6A6A6";
+  } else if (weatherId === 800) {
+    // Clear colors
+    body.style.backgroundColor = "#86BBD8";
+  } else if (weatherId >= 801 && weatherId <= 809) {
+    // Clouds colors
+    body.style.backgroundColor = "#C5CED1";
+  } else {
+    // Default background color
+    body.style.backgroundColor = "#FFFFFF";
+  }
 }
