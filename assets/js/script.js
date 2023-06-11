@@ -76,6 +76,7 @@ async function fetchForecast(city) {
   
   // Weather forecast API URL
 const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+
   try {
     // fetches the forecast for the chosen city and stores as "response"
     const response = await fetch(apiUrl);
@@ -141,10 +142,10 @@ function displayForecast(city, data) {
     forecastCard.classList.add('forecast-card');
     forecastCard.innerHTML = `
       <h3>${forecast.date}</h3>
-      <p>Temperature: ${convertKelvinToFahrenheit(forecast.temperature)} </p>
+      <p>Temp: ${convertKelvinToFahrenheit(forecast.temperature)} </p>
       <p id="high">High: ${convertKelvinToFahrenheit(forecast.tempHigh)} </p>
       <p id="low">Low: ${convertKelvinToFahrenheit(forecast.tempLow)} </p>
-      <p>Description: ${forecast.description}</p>
+      <p> ${forecast.description}</p>
       <img src="https://openweathermap.org/img/w/${forecast.icon}.png" alt="${forecast.description}">
     `;
     // added the HTML to each 'card' with <h3> for time and a <p> for main temp, low temp, high temp, weath description, and icon each.

@@ -22,25 +22,43 @@
 
 .forecast-card {
     display: inline-block;
-    width: 21%;
-    border: 2px solid #000;
+    width: 19%;
+    border: 2px solid blue;
     border-radius: 5px;
     padding: 8px;
-    margin: 8px;
+    margin: 8px 2px 8px 2px;
     box-sizing: border-box;
-    background-color: #333;
+    background-color: #555;
     color: #fff;
     transition: background-color 0.3s;
   }
   
     .forecast-card:hover {
-      background-color: #555;
+      background-color: #777;
+  }
+
+  .forecast-card p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   #high {
     color: red;
   }
-  
+
   #low {
     color: blue;
+  }
+
+  @media (max-width: 767px) {
+
+    .forecast-current {
+      width: 100%;
+    }
+  
+    .forecast-card {
+      width: 46%;
+    }
+
   }
