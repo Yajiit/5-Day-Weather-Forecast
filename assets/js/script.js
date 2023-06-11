@@ -13,8 +13,6 @@ searchForm.addEventListener('submit', function(event) {
 
   // Call the function to fetch weather forecast for the entered city
   fetchForecast(city);
-      // Add the searched city to local storage
-      addCityToLocalStorage(city);
 
       // Clear the input field after the search
       cityInput.value = '';
@@ -80,10 +78,15 @@ const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid
   try {
     // fetches the forecast for the chosen city and stores as "response"
     const response = await fetch(apiUrl);
+
     // parses the response w JSON and stores as "data"
     const data = await response.json();
     // puts parsed data into displayForecast function
-    displayForecast(city, data);
+    displayForecast(data);
+    // Add the searched city to local storage
+    addCityToLocalStorage(data.city.name);
+
+    console.log(data)
   } catch (error) {
     // log for errors
     console.log('Error:', error);
@@ -93,32 +96,10 @@ const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid
 
 
 // Function to display the weather forecast to the div container
-function displayForecast(city, data) {
+function displayForecast(data) {
 
   // clears any existing content of that div container
   forecastContainer.innerHTML = '';
-  const currentForecast = {
-    date: data.list[0].dt_txt,
-    temperature: data.list[0].main.temp,
-    tempLow: data.list[0].main.temp_min,
-    tempHigh: data.list[0].main.temp_max,
-    description: data.list[0].weather[0].description,
-    icon: data.list[0].weather[0].icon
-  };
-
-  const nextFiveDays = data.list.slice(1, 6).map(item => {
-
-  // Extract data for each forecast entry 
-    return {
-      date: item.dt_txt,
-      temperature: item.main.temp,
-      tempLow: item.main.temp_min,
-      tempHigh: item.main.temp_max,
-      description: item.weather[0].description,
-      icon: item.weather[0].icon
-      // grabs time, main temperature, low temperature, high temperature, a description of the weather, and an icon representing the weather forecast
-    };
-  });
 
   const forecastsByDay = groupForecastsByDay(data.list);
   const currentDayForecast = forecastsByDay[0];
@@ -126,7 +107,7 @@ function displayForecast(city, data) {
   const currentForecastCard = document.createElement('div');
   currentForecastCard.classList.add('forecast-current');
   currentForecastCard.innerHTML = `
-    <h2>${city}</h3>
+    <h2>${data.city.name}</h3>
     <h3>${currentDayForecast.date}</h3>
     <p>Temperature: ${convertKelvinToFahrenheit(currentDayForecast.temperature)} </p>
     <p id="high">High: ${convertKelvinToFahrenheit(currentDayForecast.tempHigh)} </p>
