@@ -1,11 +1,20 @@
+/* HEADER STYLE START */
 h1 {
   text-align: center;
 }
+/* HEADER STYLE END   */
 
+/* SMOOTHENS BACKGROUND COLOR CHANGE */
+body {
+  transition: background-color 0.5s ease;
+}
+
+/* STYLING TO WIDEN BUTTONS */
 .btn {
   width:100%
 }
 
+/* FORECAST CARD STYLING START */
 .weather-forecast{
   display: flex;
   flex-wrap: wrap;
@@ -46,27 +55,31 @@ h1 {
       background-color: #555;
   }
 
-  .forecast-card p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    .forecast-card p {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
   }
+
 
   #high {
     color: red;
   }
-
+  /* TEXT COLOR STYLING FOR HIGH AND LOW TEMP */
   #low {
     color: blue;
   }
 
+  /* FORECAST CARD STYLING END   */
+
+  /* STYLING FOR SMALL WIDTH DISPLAY */
   @media (max-width: 767px) {
 
     .forecast-current {
       width: 100%;
     }
-  
-    .forecast-card {
+
+     .forecast-card { 
       width: 49%;
     }
 

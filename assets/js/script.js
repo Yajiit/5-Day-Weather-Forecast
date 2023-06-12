@@ -108,18 +108,16 @@ function displayForecast(data) {
   const currentForecastCard = document.createElement('div');
   currentForecastCard.classList.add('forecast-current');
   currentForecastCard.innerHTML = `
-    <h2>${data.city.name}</h3>
+    <h2>${data.city.name}</h2>
     <h3>${currentDayForecast.date}</h3>
     <p>Temperature: ${convertKelvinToFahrenheit(currentDayForecast.temperature)} </p>
     <p id="high">High: ${convertKelvinToFahrenheit(currentDayForecast.tempHigh)} </p>
     <p id="low">Low: ${convertKelvinToFahrenheit(currentDayForecast.tempLow)} </p>
     <p>Description: ${currentDayForecast.description}</p>
-    <p>ID: ${data.list[0].weather[0].id}</p>
     <img src="https://openweathermap.org/img/w/${currentDayForecast.icon}.png" alt="${currentDayForecast.description}">
   `;
 
-  changeBackgroundColor(weatherId)
-  console.log(currentDayForecast)
+  changeBackgroundColor(weatherId);
   forecastContainer.appendChild(currentForecastCard);
 
   dailyForecasts.forEach(forecast => {
@@ -136,9 +134,6 @@ function displayForecast(data) {
     // added the HTML to each 'card' with <h3> for time and a <p> for main temp, low temp, high temp, weath description, and icon each.
     forecastContainer.appendChild(forecastCard);
   });
-
-
-
 }
 // Function to group forecasts by day
 function groupForecastsByDay(forecasts) {
