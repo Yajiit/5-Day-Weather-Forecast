@@ -1,15 +1,21 @@
 /* HEADER STYLE START */
 h1 {
+  font-family: 'Great Vibes', cursive;
+}
+
+#header {
+  height: 80px;
+  background: linear-gradient(to right, #0000ff, #ffffff);
   text-align: center;
 }
 /* HEADER STYLE END   */
 
-/* SMOOTHENS BACKGROUND COLOR CHANGE */
+/* Smoothens background color change */
 body {
   transition: background-color 0.5s ease;
 }
 
-/* STYLING TO WIDEN BUTTONS */
+/* Styling to widen buttons */
 .btn {
   width:100%
 }
@@ -36,6 +42,7 @@ body {
   box-sizing: border-box;
   font-size:112%;
   background-color: #fff;
+  font-family: 'Roboto', sans-serif;
 }
 
 .forecast-card {
@@ -46,13 +53,14 @@ body {
     padding: 8px;
     margin: 8px 2px 8px 2px;
     box-sizing: border-box;
-    background-color: #888;
+    background-color: #bbb;
     color: #fff;
     transition: background-color 0.3s;
+    font-family: 'Lato', sans-serif;
   }
   
     .forecast-card:hover {
-      background-color: #555;
+      background-color: #999;
   }
 
     .forecast-card p {
@@ -65,7 +73,7 @@ body {
   #high {
     color: red;
   }
-  /* TEXT COLOR STYLING FOR HIGH AND LOW TEMP */
+  /* Text color styling for High and Low Temp */
   #low {
     color: blue;
   }

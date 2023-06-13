@@ -110,9 +110,10 @@ function displayForecast(data) {
   currentForecastCard.innerHTML = `
     <h2>${data.city.name}</h2>
     <h3>${currentDayForecast.date}</h3>
-    <p>Temperature: ${convertKelvinToFahrenheit(currentDayForecast.temperature)} </p>
-    <p id="high">High: ${convertKelvinToFahrenheit(currentDayForecast.tempHigh)} </p>
-    <p id="low">Low: ${convertKelvinToFahrenheit(currentDayForecast.tempLow)} </p>
+    <p>Temperature: ${convertKelvinToFahrenheit(currentDayForecast.temperature)}°F </p>
+    <p id="high">High: ${convertKelvinToFahrenheit(currentDayForecast.tempHigh)}°F </p>
+    <p id="low">Low: ${convertKelvinToFahrenheit(currentDayForecast.tempLow)}°F </p>
+    <p> Humidity: ${currentDayForecast.humidity}%</p>
     <p>Description: ${currentDayForecast.description}</p>
     <img src="https://openweathermap.org/img/w/${currentDayForecast.icon}.png" alt="${currentDayForecast.description}">
   `;
@@ -125,9 +126,10 @@ function displayForecast(data) {
     forecastCard.classList.add('forecast-card');
     forecastCard.innerHTML = `
       <h3>${forecast.date}</h3>
-      <p>Temp: ${convertKelvinToFahrenheit(forecast.temperature)} </p>
-      <p id="high">H: ${convertKelvinToFahrenheit(forecast.tempHigh)} </p>
-      <p id="low">L: ${convertKelvinToFahrenheit(forecast.tempLow)} </p>
+      <p>Temps:</p>
+      <p>${convertKelvinToFahrenheit(forecast.temperature)}°F </p>
+      <p id="high">H: ${convertKelvinToFahrenheit(forecast.tempHigh)}°F </p>
+      <p id="low">L: ${convertKelvinToFahrenheit(forecast.tempLow)}°F </p>
       <p> ${forecast.description}</p>
       <img src="https://openweathermap.org/img/w/${forecast.icon}.png" alt="${forecast.description}">
     `;
@@ -148,6 +150,7 @@ function groupForecastsByDay(forecasts) {
         tempLow: forecast.main.temp_min,
         tempHigh: forecast.main.temp_max,
         description: forecast.weather[0].description,
+        humidity: forecast.main.humidity,
         icon: forecast.weather[0].icon
       };
     } else {
